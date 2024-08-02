@@ -1,76 +1,31 @@
-/* eslint-disable @next/next/no-img-element  -- no needed */
-import Link from 'next/link'
+import { Suspense } from 'react'
 
-export default function Home(): JSX.Element {
+import Recipes from '@/app/recipes/components/Recipes/recipes'
+import RecipesSkeleton from '@/app/recipes/components/Skeleton/recipes-skeleton'
+import Tags from '@/app/recipes/components/Tags/tags'
+
+interface RecipesPageProps {
+    searchParams?: Record<string, string | string[] | undefined>
+}
+
+export default function RecipesPage({ searchParams }: RecipesPageProps): JSX.Element {
+    const searchParamTag = searchParams?.tag ?? 'all'
+
+    const tag = Array.isArray(searchParamTag) ? searchParamTag[0] : searchParamTag
+
     return (
-        <div className="container prose py-20">
-            <h1>Тестове завдання для Increasio</h1>
-            <p>
-                Для виконання тестового завдання необхідно реалізувати веб-додаток, який буде відображати список рецептів. Рецепти потрібно брати з API{' '}
-                <a href="https://dummyjson.com/docs/recipes">DummyJSON</a>. Додаток повинен максимально використовувати Server Side Rendering, Suspense Boundary та інші можливості
-                Next.js.
-            </p>
-            <h2>Завдання 1</h2>
-            <b>Кожен рецепт має містити наступні поля:</b>
-            <ul>
-                <li>Зображення</li>
-                <li>Список тегів включно до визначенної довжини масиву</li>
-                <li>Назва</li>
-                <li>Складові рецепту (лише до двох рядків)</li>
-                <li>Рівень складності який змінє колір</li>
-                <li>Вид кухні</li>
-                <li>Кнопка перегляду рецепта</li>
-                <li>Бейдж популярного рецепту на основі зазначеного рейтингу</li>
-            </ul>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722505617/6a4d1b5e-19ec-4dff-a79d-2e510d725fa8.png" />
-            <h2>Завдання 2</h2>
-            <p>
-                Потрібно реалізувати можливість фільтрації рецептів за тегами. При кліку на тег відображаються тільки ті рецепти, які містять вказаний тег. Також цей функціонал має
-                працювати при кліку на тег в карточці рецепту.
-            </p>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722505659/35e5d225-a22f-489f-9c06-6b5892783298.png" />
-            <h2>Завдання 3</h2>
-            <p>
-                Потрібно реалізувати пагінацію. При завантаженні рецептів вертається інформація про загальну кількість рецептів. За допомогою цього значення потрібно побудувати
-                пагінацію та показувати тільки 3 сторінки.
-            </p>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722505548/139d8be0-774a-48a2-b280-54f1b440389e.png" />
-            <h2>Завдання 4</h2>
-            <p>
-                Потрібно зробити сторінку рецепту, на якій будуть відображатись інструкції по приготуванню. Інструкції мають бути розділені на кроки. Також, на цій сторінці
-                потрібно динамічно генерувати мета тайтл.
-            </p>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722505764/c34865e6-1db2-4700-a906-695c425a26aa.png" />
-            <h2>Завдання 5</h2>
-            <p>
-                Потрібно реалізувати загрузку данних з використанням Suspense. При кожному оновленні чи зміні сторінки та фільтра повинно відображатись скелетон-завантаження. Данні
-                які використовуються лише раз повинні не завантажуватись повторно.
-            </p>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722505909/93680b49-804e-4af4-b408-a05eca270cec.png" />
-            <h2>Завдання 6</h2>
-            <p>
-                Потрібно реалізувати можливість зберігання стану фільтрації та пагінації в URL. При перезавантаженні сторінки або переході по посиланню повинен відображатись
-                відповідний стан.
-            </p>
-            <h2>Завдання 7</h2>
-            <p>Потрібно зробити мобайл версію</p>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722506150/1031b7bb-19bc-4fea-be13-205ab7b3f526.png" />
+        <main className="container">
+            <div className="mx-auto mt-4 flex max-w-[500px] flex-col">
+                <h1 className="text-center text-2xl font-bold">Increasio Recipies</h1>
 
-            <hr />
-            <h2>Приклад готового проекту</h2>
-            <img alt="" src="https://res.cloudinary.com/increas-io/image/upload/v1722506416/4682ea8c-545b-4869-b414-4be0d0938bbc.png" />
-            <hr />
+                <p className="text-sm text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.</p>
+            </div>
 
-            <h3>Примітки:</h3>
-            <ul>
-                <li>Для реалізації завдання використовувати Next.js та TypeScript</li>
-                <li>Для стилізації використовувати Tailwind CSS, Shadcn або інші бібліотеки</li>
-                <li>Для searchParams використовувати nuqs</li>
-                <li>Всі необходні ресурси є в відповідних папках</li>
-            </ul>
+            <Tags />
 
-            <hr />
-            <Link href="/recipes">Перейти до завдання</Link>
-        </div>
+            <Suspense fallback={<RecipesSkeleton />}>
+                <Recipes tag={tag ? tag : 'all'} />/
+            </Suspense>
+        </main>
     )
 }

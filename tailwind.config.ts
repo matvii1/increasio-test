@@ -24,6 +24,9 @@ const config = {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
             },
+            gridTemplateColumns: {
+                fluid: 'repeat(auto-fit, minmax(200px, 1fr))',
+            },
         },
     },
     plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms'), require('tailwindcss-animate')],

@@ -17,7 +17,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
     return (
         <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <body suppressHydrationWarning className={inter.className}>
+                {children}
+            </body>
         </html>
     )
 }
