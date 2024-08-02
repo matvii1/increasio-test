@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content -- library component */
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
