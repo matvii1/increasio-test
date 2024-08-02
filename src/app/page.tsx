@@ -10,21 +10,22 @@ interface RecipesPageProps {
 
 export default function RecipesPage({ searchParams }: RecipesPageProps): JSX.Element {
     const searchParamTag = searchParams?.tag ?? 'all'
+    const page = searchParams?.page ? Number(searchParams.page) : 1
 
     const tag = Array.isArray(searchParamTag) ? searchParamTag[0] : searchParamTag
 
     return (
         <main className="container">
             <div className="mx-auto mt-4 flex max-w-[500px] flex-col">
-                <h1 className="text-center text-2xl font-bold">Increasio Recipies</h1>
+                <h1 className="text-center text-2xl font-bold">Increasio Recipes</h1>
 
-                <p className="text-sm text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.</p>
+                <p className="text-sm text-slate-500">A collection of recipes from all around the world. Discover new flavors and techniques.</p>
             </div>
 
             <Tags />
 
             <Suspense fallback={<RecipesSkeleton />}>
-                <Recipes tag={tag ? tag : 'all'} />
+                <Recipes page={page} tag={tag ? tag : 'all'} />
             </Suspense>
         </main>
     )

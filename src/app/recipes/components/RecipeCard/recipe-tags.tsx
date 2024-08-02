@@ -1,26 +1,28 @@
 'use client'
 
-import { useQueryState } from 'nuqs'
+import { parseAsInteger, useQueryState } from 'nuqs'
 
 import action from '@/app/actions'
 import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { MAX_TAGS } from '@/constants'
 
 interface RecipeTagsProps {
     tags: string[]
 }
 
-const TAGS_LIMIT = 4
-
 export default function RecipeTags({ tags }: RecipeTagsProps): JSX.Element {
-    const tagsToShow = tags.slice(0, TAGS_LIMIT)
+    const tagsToShow = tags.slice(0, MAX_TAGS)
 
     const leftTags = tags.length - tagsToShow.length
 
     const [chosenTag, setChosenTag] = useQueryState('tag')
+    const [_, setPage] = useQueryState('page', parseAsInteger)
 
     async function handleChosenTag(tag: string): Promise<void> {
         if (tag !== chosenTag) {
             await setChosenTag(tag.toLowerCase())
+            await setPage(null)
         }
 
         await action()
@@ -34,7 +36,20 @@ export default function RecipeTags({ tags }: RecipeTagsProps): JSX.Element {
                 </Badge>
             ))}
 
-            {leftTags > 1 && <Badge>+{leftTags} more</Badge>}
+            {leftTags > 1 && (
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger className="cursor-pointer">
+                            <Badge>+{leftTags} more</Badge>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {tags.map((tag) => (
+                                <p key={tag}>{tag}</p>
+                            ))}
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            )}
         </div>
     )
 }

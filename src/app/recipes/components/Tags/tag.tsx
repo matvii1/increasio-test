@@ -13,7 +13,7 @@ export default function Tag({ tag, handleChosenTag, isChosen }: TagProps): JSX.E
         <Button
             className="h-6"
             size="sm"
-            variant={isChosen ? 'default' :"outline"}
+            variant={isChosen ? 'default' : 'outline'}
             onClick={() => {
                 handleChosenTag(tag)
             }}
