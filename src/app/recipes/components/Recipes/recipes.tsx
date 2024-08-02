@@ -1,3 +1,4 @@
+import RecipeCard from '@/app/recipes/components/RecipeCard/recipe-card'
 import { getRecipes } from '@/lib/api'
 
 export const revalidate = 0
@@ -12,10 +13,10 @@ export default async function Recipes({ tag }: RecipesProps): Promise<JSX.Elemen
 
     return (
         <div className="mt-4">
-            <div className="flex flex-col space-y-4">
-                <pre>
-                    <code>{JSON.stringify(data.recipes, null, 2)}</code>
-                </pre>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {data.recipes.map((recipe) => {
+                    return <RecipeCard key={recipe.id} recipe={recipe} />
+                })}
             </div>
         </div>
     )

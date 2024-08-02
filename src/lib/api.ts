@@ -5,7 +5,7 @@ export const getRecipe = ({ id }: { id: string }): Promise<Recipe | null> => fet
 
 export const getTags = (): Promise<string[]> => fetch(`${API_URL}/tags`).then((res) => res.json()) as Promise<string[]>
 
-export const getRecipes = async ({ page, tag }: { page: number; tag?: string | null }): Promise<ApiResponse<Recipe[]>> => {
+export const getRecipes = async ({ page, tag }: { page: number; tag?: string | null }): Promise<ApiResponse<Recipe>> => {
     const params = new URLSearchParams({
         limit: String(PAGE_SIZE),
         skip: String((page - 1) * PAGE_SIZE),
@@ -16,7 +16,7 @@ export const getRecipes = async ({ page, tag }: { page: number; tag?: string | n
         next: {
             tags: ['recipes'],
         },
-    }).then((res) => res.json())) as ApiResponse<Recipe[]>
+    }).then((res) => res.json())) as ApiResponse<Recipe>
 
     return data
 }

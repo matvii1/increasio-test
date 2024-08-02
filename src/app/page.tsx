@@ -24,7 +24,7 @@ export default function RecipesPage({ searchParams }: RecipesPageProps): JSX.Ele
             <Tags />
 
             <Suspense fallback={<RecipesSkeleton />}>
-                <Recipes tag={tag ? tag : 'all'} />/
+                <Recipes tag={tag ? tag : 'all'} />
             </Suspense>
         </main>
     )

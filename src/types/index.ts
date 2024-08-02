@@ -6,6 +6,7 @@ export interface ApiResponse<T> {
 }
 
 export interface Recipe {
+		title: string
     id: number
     name: string
     ingredients: string[]
