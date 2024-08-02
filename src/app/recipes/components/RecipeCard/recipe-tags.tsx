@@ -2,7 +2,7 @@
 
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-import action from '@/app/actions'
+import revalidateHomepage from '@/app/actions'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { MAX_TAGS } from '@/constants'
@@ -25,7 +25,7 @@ export default function RecipeTags({ tags }: RecipeTagsProps): JSX.Element {
             await setPage(null)
         }
 
-        await action()
+        await revalidateHomepage()
     }
 
     return (

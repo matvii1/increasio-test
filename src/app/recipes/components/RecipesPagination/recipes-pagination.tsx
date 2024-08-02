@@ -3,7 +3,7 @@
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { type ReactNode } from 'react'
 
-import action from '@/app/actions'
+import revalidateHomepage from '@/app/actions'
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 import { PAGE_SIZE, VISIBLE_PAGES_COUNT } from '@/constants'
 import { cn } from '@/lib/utils'
@@ -32,7 +32,7 @@ export default function RecipesPagination({ total }: RecipesPaginationProps): Re
 
     async function changePage(newPage: number): Promise<void> {
         await setPage(newPage)
-        await action()
+        await revalidateHomepage()
     }
 
     async function handlePreviousPage(): Promise<void> {
@@ -40,7 +40,7 @@ export default function RecipesPagination({ total }: RecipesPaginationProps): Re
             void changePage(page - 1)
         }
 
-        await action()
+        await revalidateHomepage()
     }
 
     async function handleNextPage(): Promise<void> {
@@ -48,7 +48,7 @@ export default function RecipesPagination({ total }: RecipesPaginationProps): Re
             void changePage(page + 1)
         }
 
-        await action()
+        await revalidateHomepage()
     }
 
     return (

@@ -2,7 +2,7 @@
 
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-import action from '@/app/actions'
+import revalidateHomepage from '@/app/actions'
 import Tag from '@/app/recipes/components/Tags/tag'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
@@ -16,7 +16,7 @@ export default function TagsList({ tags }: { tags: string[] }): JSX.Element {
             await setPage(null)
         }
 
-        await action()
+        await revalidateHomepage()
     }
 
     return (

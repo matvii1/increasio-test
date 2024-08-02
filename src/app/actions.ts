@@ -1,8 +1,8 @@
 'use server'
 
-// import { revalidateTag } from 'next/cache'
 import { revalidatePath } from 'next/cache'
 
-export default async function action() {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/require-await -- this function should be async
+export default async function revalidateHomepage() {
     revalidatePath('/')
 }
