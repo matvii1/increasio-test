@@ -10,6 +10,18 @@ interface RecipesProps {
 export default async function Recipes({ tag, page }: RecipesProps): Promise<JSX.Element> {
     const data = await getRecipes({ page, tag: tag === 'all' ? '' : tag })
 
+    const isEmpty = data.total === 0 || data.recipes.length === 0
+
+    if (isEmpty) {
+        return (
+            <section className="pb-8">
+                <div className="mt-12 flex items-center justify-center gap-2">
+                    <p className="text-center text-slate-500">No recipes found</p>
+                </div>
+            </section>
+        )
+    }
+
     return (
         <section className="pb-8">
             <div className="mt-4">
